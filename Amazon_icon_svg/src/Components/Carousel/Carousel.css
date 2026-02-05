@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.hero_img {
+  position: relative;
+  width: 100%;
+  max-width: 100vw; /* never exceed screen */
+  overflow: hidden;
+}
+
+/* Gradient */
+.hero_img::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+  z-index: 2;
+}
+
+/* Override carousel image */
+.hero_img .carousel .slide img {
+  width: 100%;
+  max-width: 100%;
+  height: 700px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero_img .carousel .slide img {
+    height: 200px;
+  }
+}
+.hero_img .carousel .slide img {
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
