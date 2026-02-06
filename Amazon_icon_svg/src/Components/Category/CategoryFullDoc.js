@@ -1,26 +1,22 @@
 export const CategoryInfos = [
   {
-    id: 7,
-    title: "White Gold Plated Princess",
-
-    image: "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_t.png",
+    title: "electronics",
+    image:
+      " https://th.bing.com/th/id/OIP.6AwfvMS9Z_ujYPRtHs1fYgHaFb?w=211&h=180&c=7&r=0&o=7&pid=1.7&rm=3",
   },
   {
-    id: 8,
-    title: "Pierced Owl Rose Gold Plated Stainless Steel Double",
-
-    image: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_t.png",
+    title: "jewelery",
+    image:
+      "https://www.bing.com/th/id/OIP.RetL_Ww4SlJrrUgJzCT-jQHaE8?w=243&h=211&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
   },
   {
-    id: 9,
-    title: "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
-
-    image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_t.png",
+    title: "men's clothing",
+    image:
+      "https://www.bing.com/th/id/OIP.EVHbYF6a_0s9s7OaTWyxoQHaEK?w=343&h=211&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
   },
   {
-    id: 10,
-    title: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
-
-    image: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_t.png",
+    title: "women's clothing",
+    image:
+      "https://th.bing.com/th/id/OIP.nlvx5fUMAKKBTVX4CB4gigHaHa?w=230&h=220&c=7&r=0&o=7&pid=1.7&rm=3",
   },
 ];

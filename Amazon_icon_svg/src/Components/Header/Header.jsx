@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import { BiCart } from "react-icons/bi";
@@ -11,12 +12,12 @@ function Header() {
         <div className={classes.header_container}>
           {/* logo */}
           <div className={classes.logo_container}>
-            <a href="/">
+            <Link to="/">
               <img
                 src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
                 alt="amazon logo"
               />
-            </a>
+            </Link>
             <div className={classes.delivery}>
               <span>
                 <IoLocationOutline />
@@ -41,7 +42,7 @@ function Header() {
           {/* right side link */}
 
           <div className={classes.order_container}>
-            <a href="/" className={classes.language}>
+            <Link to="/" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
                 alt="USA Flag"
@@ -51,22 +52,20 @@ function Header() {
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-            </a>
-
-            <a href="/">
+            </Link>
+            <Link to="/">
               <p>Sign In</p>
               <span>Account & Lists</span>
-            </a>
-
-            <a href="/">
+            </Link>
+            <Link to="/orders">
               <p>returns</p>
               <span>& orders</span>
-            </a>
+            </Link>
 
-            <a href="/" className={classes.cart}>
+            <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
               <span>0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

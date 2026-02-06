@@ -5,9 +5,8 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .category img {
-  width: 100%;
-
-  object-fit: contain;
+  width: 90%;
+  /* height: 200px; */
   max-height: 250px;
   padding: 0px 10px;
 }
@@ -28,6 +27,7 @@
 .category_container {
   position: relative;
   margin-top: -20%;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
