@@ -18,29 +18,21 @@ function Results() {
       .catch((err) => console.log(err));
   }, [decodedCategory]);
 
-  // const { CategoryName } = useParams();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${productUrl}/products/category/${CategoryName}`)
-  //     .then((res) => {
-  //       setResults(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [CategoryName]);
-
   return (
     <LayOut>
       <section>
         <h1 style={{ padding: "30px" }}> Results</h1>
-        {/* <p style={{ padding: "30px" }}>Category/{CategoryName}</p> */}
+
         <p style={{ padding: "30px" }}>Category/{decodedCategory}</p>
         <hr />
         <div className={classes.products_container}>
           {Results?.map((product) => (
-            <ProductCard key={product.id} Product={product} />
+            <ProductCard
+              key={product.id}
+              Product={product}
+              renderDesc={false}
+              renderAdd={true}
+            />
           ))}
         </div>
       </section>
