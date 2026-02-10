@@ -41,7 +41,11 @@
 .cart_container hr {
   margin: 10px;
 }
+
 .subtotal {
+  position: relative;
+  z-index: 9999;
+
   padding: 20px;
   min-width: 300px;
   height: 30%;
