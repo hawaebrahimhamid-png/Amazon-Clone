@@ -41,17 +41,18 @@
 .search {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   border-radius: 10px;
   overflow: hidden;
-  width: 100%;
+  /* width: 100%; */
   flex: 1;
+  background-color: white;
 }
 .search select,
 .search input {
   padding: 10px;
   font-weight: bold;
-  outline: 1px solid white;
+  /* outline: 1px solid white; */
 }
 .search select {
   border: none;
@@ -62,9 +63,10 @@
   margin-right: -2px;
 }
 .search svg {
-  padding: 11px;
   background: #febd69;
   color: #1a1a1a;
+  /* font-size: 28px; */
+  padding: 19px;
 }
 .search svg:hover {
   background-color: #d49644;
@@ -111,7 +113,7 @@
   left: 16px;
   color: orange;
 }
-.order_container a :hover,
+.order_container a:hover,
 .delivery:hover,
 .logo_container a:hover,
 .lower_container ul li:hover {
