@@ -3,6 +3,10 @@ import classes from "./Payment.module.css";
 import LayOut from "../../Components/LayOut/LayOut";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import ProductCard from "../../Components/Product/ProductCard";
+import ClipLoader from "react-spinners/ClipLoader";
+import { db } from "../../Utility/Firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import {
   useCheckout,
   useElements,
@@ -10,29 +14,75 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import CurrencyFormat from "../../Components/Currencyformat/Currencyformat";
+import axiosInstance from "../../Api/Axios";
+
+// import (axiosInstance) from "../../Api/Axios"
 function Payment() {
   const [{ user, basket }] = useContext(DataContext);
 
   const totalItem = basket?.reduce((amount, item) => amount + item.amount, 0);
-  const total = basket.reduce((amount, item) => {
-    return item.price + amount;
-  }, 0);
-  const [cardError, setCardError] = useState(null);
 
+  // const total = basket.reduce((amount, item) => amount + item.price * 100, 0);
+  // in cents
+  const total = basket.reduce((amount, item) => amount + item.price, 0);
+
+  const [cardError, setCardError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [cardComplete, setCardComplete] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  const handleChange = (e) => {
-    console.log(e);
-    e?.error?.message ? setCardError(e?.error?.message) : setCardError("");
+  const navigate = useNavigate();
+  const handleChange = (event) => {
+    setCardError(event.error ? event.error.message : "");
+    setCardComplete(event.complete); // ✅ Track completion
   };
 
-  const handlePayment = (e) => {
+  const handlePayment = async (e) => {
     e.preventDefault();
-    1; //backend||function
+    if (!stripe || !elements) return;
+    try {
+      setProcessing(true);
+      //1.backend||function....> contact to the client
+      const response = await axiosInstance({
+        method: "post",
+        url: `/payment/create?total=${total * 100}`,
+      });
+      // console.log(response.data);
+      const clientSecret = response.data?.clientSecret;
+      //2. react client side conformation
 
-    //2. react side conformation
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: elements.getElement(CardElement),
+          },
+        },
+      );
 
-    // 3. 0rder firestore save in database ,clear basket
+      if (error) {
+        console.log("Payment Error:", error.message);
+        setCardError(error.message);
+        setProcessing(false);
+      } else if (paymentIntent.status === "succeeded") {
+        console.log("Payment Successful ✅");
+        setProcessing(false);
+        // 3. order firestore save in database ,clear basket
+        await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
+          basket: basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        });
+
+        setProcessing(false);
+        navigate("/orders", {
+          state: { msg: "You have placed a new order" },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setProcessing(false);
+    }
   };
   return (
     <LayOut>
@@ -82,7 +132,19 @@ function Payment() {
                       <p> Total order |</p> <CurrencyFormat amount={total} />
                     </span>
                   </div>
-                  <button>Pay Now</button>
+                  <button
+                    type="submit"
+                    disabled={!stripe || processing || !cardComplete}
+                  >
+                    {processing ? (
+                      <div className={classes.loading}>
+                        <ClipLoader color="gray" size={12} />
+                        <p>Please wait...</p>
+                      </div>
+                    ) : (
+                      "Pay Now"
+                    )}
+                  </button>
                 </div>
               </form>
             </div>

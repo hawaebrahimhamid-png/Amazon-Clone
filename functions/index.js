@@ -6,7 +6,7 @@ const logger = require("firebase-functions/logger");
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { Message } = require("firebase-functions/pubsub");
+// const { Message } = require("firebase-functions/pubsub");
 dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
@@ -14,13 +14,14 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
+app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({
     Message: "Success",
   });
 });
 app.post("/payment/create", async (req, res) => {
-  const total = req.query.total;
+  const total = parseInt(req.query.total);
   if (total > 0) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
