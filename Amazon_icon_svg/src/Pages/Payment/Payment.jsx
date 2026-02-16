@@ -18,7 +18,7 @@ import axiosInstance from "../../Api/Axios";
 
 // import (axiosInstance) from "../../Api/Axios"
 function Payment() {
-  const [{ user, basket }] = useContext(DataContext);
+  const [{ user, basket }, dispatch] = useContext(DataContext);
 
   const totalItem = basket?.reduce((amount, item) => amount + item.amount, 0);
 
@@ -73,6 +73,8 @@ function Payment() {
           amount: paymentIntent.amount,
           created: paymentIntent.created,
         });
+        // empyt the basket
+        dispatch({ type: Type.EMPTY_BASKET });
 
         setProcessing(false);
         navigate("/orders", {

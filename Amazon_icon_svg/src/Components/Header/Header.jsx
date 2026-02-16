@@ -61,12 +61,20 @@ function Header() {
                 <option value="">EN</option>
               </select>
             </Link>
-            <Link to={!user && "/auth"}>
+            {/* <Link to={!user && "/auth"}> */}
+            <Link to={!user ? "/auth" : "/"}>
               <div>
                 {user ? (
                   <>
                     <p>Hello {user.email.split("@")[0]}</p>
-                    <span onClick={() => auth.signOut()}>Sign Out</span>
+                    {/* <span onClick={() => auth.signOut()}>Sign Out</span> */}
+                    <span
+                      onClick={() => {
+                        auth.signOut();
+                      }}
+                    >
+                      Sign Out
+                    </span>
                   </>
                 ) : (
                   <>

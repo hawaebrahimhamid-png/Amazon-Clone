@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import classes from "./SignUp.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/Firebase";
 import {
   signInWithEmailAndPassword,
@@ -22,11 +22,14 @@ function Auth() {
 
   const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
+  const navStateData = useLocation();
+  console.log(navStateData);
   // console.log(user);
   const authHandler = async (e) => {
     e.preventDefault();
-    console.log(e.target.name);
-    if (e.target.name == "signin") {
+    const btnName = e.nativeEvent.submitter?.name;
+
+    if (btnName === "signin") {
       setLoading({ ...loading, signIn: true });
 
       signInWithEmailAndPassword(auth, email, password)
@@ -36,7 +39,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -51,7 +54,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signUp: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -72,7 +75,20 @@ function Auth() {
       {/* form */}
       <div className={classes.login_container}>
         <h1>Sign In</h1>
-        <form action="">
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
+
+        <form onSubmit={authHandler}>
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -93,34 +109,36 @@ function Auth() {
           </div>
           <button
             type="submit"
-            onClick={authHandler}
             name="signin"
             className={classes.login_signInbutton}
           >
             {loading.signIn ? <ClipLoader color="#000" size={15} /> : "Sign In"}
           </button>
-        </form>
-        {/* agreement */}
-        <p>
-          By signing in your agree to the amazon clone condition of use and
-          sate.
-        </p>
-        {/* create account btn */}
-        <button
-          type="submit"
+
+          {/* agreement */}
+          <p>
+            By signing in your agree to the amazon clone condition of use and
+            sate.
+          </p>
+          {/* create account btn */}
+
+          <button type="submit" name="signup">
+            {/* <button
+          type="button"
           onClick={authHandler}
           name="signup"
           className={classes.login_registerbutton}
-        >
-          {loading.signUp ? (
-            <ClipLoader color="#000" size={15} />
-          ) : (
-            "Create your Amazon Account"
+        > */}
+            {loading.signUp ? (
+              <ClipLoader color="#000" size={15} />
+            ) : (
+              "Create your Amazon Account"
+            )}
+          </button>
+          {error && (
+            <small style={{ paddingTop: 5, color: "red" }}>{error}</small>
           )}
-        </button>
-        {error && (
-          <small style={{ paddingTop: 5, color: "red" }}>{error}</small>
-        )}
+        </form>
       </div>
     </section>
   );
