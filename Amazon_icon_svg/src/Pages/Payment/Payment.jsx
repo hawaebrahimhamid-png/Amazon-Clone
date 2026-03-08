@@ -7,8 +7,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { db } from "../../Utility/Firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { Type } from "../../Utility/Reducer";
-
+// import { Type } from "../../Utility/Reducer";
+import { Type } from "../../Utility/Action.type";
 import {
   useCheckout,
   useElements,
