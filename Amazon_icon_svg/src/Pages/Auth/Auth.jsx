@@ -13,14 +13,12 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState({
     signIn: false,
     signUp: false,
   });
 
-  const [{ user }, dispatch] = useContext(DataContext);
+  const [, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
   const navStateData = useLocation();
   console.log(navStateData);

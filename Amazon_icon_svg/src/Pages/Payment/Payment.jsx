@@ -5,12 +5,11 @@ import { DataContext } from "../../Components/DataProvider/DataProvider";
 import ProductCard from "../../Components/Product/ProductCard";
 import ClipLoader from "react-spinners/ClipLoader";
 import { db } from "../../Utility/Firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 // import { Type } from "../../Utility/Reducer";
 import { Type } from "../../Utility/Action.type";
 import {
-  useCheckout,
   useElements,
   CardElement,
   useStripe,

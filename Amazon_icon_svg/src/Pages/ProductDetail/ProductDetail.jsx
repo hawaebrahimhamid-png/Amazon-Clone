@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import classes from "./ProductDetail.module.css";
 import LayOut from "../../Components/LayOut/LayOut";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -23,7 +22,7 @@ function ProductDetail() {
         console.log(err);
         setIsLoading(false);
       });
-  }, []);
+  }, [productId]);
   return (
     <LayOut>
       {isLoading ? (

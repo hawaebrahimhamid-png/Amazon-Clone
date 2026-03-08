@@ -8,7 +8,7 @@ import LowerHeader from "./LowerHeader";
 import { auth } from "../../Utility/Firebase";
 import { DataContext } from "../DataProvider/DataProvider";
 function Header() {
-  const [{ user, basket }, dispatch] = useContext(DataContext);
+  const [{ user, basket }] = useContext(DataContext);
 
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
